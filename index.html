@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주식회사 지상 P&D | Real Estate Expert</title>
+    <!-- Tailwind CSS (디자인 프레임워크) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        corporate: {
+                            900: '#0a1128', // Deep Navy
+                            800: '#1c2541',
+                            700: '#3a506b',
+                            gold: '#d4af37', // Accent Gold
+                            light: '#f8fafc',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans KR"', 'sans-serif'],
+                        serif: ['"Noto Serif KR"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+        /* 전체 배경을 밝은 톤으로 변경 */
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #ffffff; color: #333333; }
+        .font-serif { font-family: 'Noto Serif KR', serif; }
+        
+        /* Hero Section Animation (Ken Burns Effect) */
+        .hero-container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* 첨부해주신 사진처럼 맑은 하늘과 색감이 돋보이는 밝은 건축물 이미지 */
+            background-image: url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            animation: kenBurns 20s ease-in-out infinite alternate;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.7) 45%, rgba(255, 255, 255, 0.1) 100%);
+            z-index: 1;
+        }
+
+        @keyframes kenBurns {
+            0% { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.1) translate(-1%, -1%); }
+        }
+
+        /* Text Fade-in Animations */
+        .fade-in-up {
+            animation: fadeInUp 1.2s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-400 { animation-delay: 0.4s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Card Hover Effects */
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: #d4af37;
+        }
+        
+        /* Modal Scrollbar Customization */
+        .modal-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+            border-radius: 4px;
+        }
+        .modal-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        .modal-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-corporate-gold selection:text-white relative">
+
+    <!-- Header / Navigation -->
+    <header class="fixed w-full top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3 text-2xl font-serif font-bold text-corporate-900 tracking-tight">
+                <svg class="w-8 h-8 text-corporate-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                <span>지상 P&D<span class="text-corporate-gold">.</span></span>
+            </div>
+            <nav class="hidden md:flex space-x-8 text-sm font-medium text-gray-600">
+                <a href="#home" class="hover:text-corporate-gold transition-colors">Home</a>
+                <a href="#about" class="hover:text-corporate-gold transition-colors">About Us</a>
+                <a href="#business" class="hover:text-corporate-gold transition-colors">Business Area</a>
+                <a href="#partners" class="hover:text-corporate-gold transition-colors">Partners</a>
+                <a href="#contact" class="hover:text-corporate-gold transition-colors">Contact</a>
+            </nav>
+            <button id="menu-btn" onclick="toggleMobileMenu()" class="md:hidden text-corporate-900 focus:outline-none p-2 hover:text-corporate-gold transition-colors rounded-lg">
+                <!-- Hamburger Icon -->
+                <svg id="hamburger-icon" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                <!-- Close Icon -->
+                <svg id="close-icon" class="w-6 h-6 hidden transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Drawer -->
+    <div id="mobile-menu" class="fixed inset-x-0 top-20 z-40 md:hidden bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-xl transition-all duration-300 transform -translate-y-full opacity-0 pointer-events-none">
+        <nav class="flex flex-col px-6 py-6 space-y-4 text-base font-medium text-gray-700">
+            <a href="#home" onclick="closeMobileMenu()" class="hover:text-corporate-gold transition-colors py-2 border-b border-gray-50 flex items-center justify-between">
+                <span>Home</span>
+                <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </a>
+            <a href="#about" onclick="closeMobileMenu()" class="hover:text-corporate-gold transition-colors py-2 border-b border-gray-50 flex items-center justify-between">
+                <span>About Us</span>
+                <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </a>
+            <a href="#business" onclick="closeMobileMenu()" class="hover:text-corporate-gold transition-colors py-2 border-b border-gray-50 flex items-center justify-between">
+                <span>Business Area</span>
+                <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </a>
+            <a href="#partners" onclick="closeMobileMenu()" class="hover:text-corporate-gold transition-colors py-2 border-b border-gray-50 flex items-center justify-between">
+                <span>Partners</span>
+                <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </a>
+            <a href="#contact" onclick="closeMobileMenu()" class="hover:text-corporate-gold transition-colors py-2 flex items-center justify-between">
+                <span>Contact</span>
+                <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-start hero-container">
+        <div class="hero-bg-image"></div>
+        <div class="hero-overlay"></div>
+
+        <div class="max-w-7xl mx-auto px-6 w-full z-10 relative mb-12">
+            <div class="max-w-3xl text-left">
+                <p class="text-corporate-gold font-bold tracking-widest uppercase mb-4 text-sm md:text-base fade-in-up">
+                    Real Estate Management & Consulting
+                </p>
+                <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-corporate-900 leading-tight mb-6 fade-in-up delay-200 break-keep">
+                    경험이 증명하는 공간의 가치,<br>
+                    성공을 설계하는 파트너
+                </h1>
+                <p class="text-base md:text-lg text-gray-700 font-medium max-w-2xl leading-relaxed fade-in-up delay-400 break-keep">
+                    2001년부터 축적된 데이터와 압도적인 실무 경험을 바탕으로,<br>
+                    최소의 자본으로 최대의 이익을 실현하는 독창적인 개발 전략을 제공합니다.
+                </p>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-16 left-0 right-0 flex flex-col sm:flex-row justify-center gap-4 fade-in-up delay-400 z-10 px-6">
+            <a href="#about" class="px-8 py-4 bg-corporate-900 text-white font-bold rounded hover:bg-corporate-800 transition-colors shadow-lg text-center">
+                기업 소개 보기
+            </a>
+            <a href="#business" class="px-8 py-4 bg-white border border-gray-300 text-corporate-900 font-medium rounded hover:bg-gray-50 transition-colors shadow-lg text-center">
+                비즈니스 영역
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-corporate-900 mb-6 break-keep">최고의 영업무기는<br><span class="text-corporate-gold">경험</span>입니다.</h2>
+                    <p class="text-gray-600 leading-relaxed mb-6 font-light break-keep">
+                        21세기 부동산 개발, 기획, 분양, 임대대행, 컨설팅 업무의 선도적 역할을 수행하는 주식회사 지상 P&D는 독창적인 개발전략을 수립하여 종합적인 방안을 제공하는 전문 기업입니다.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed font-light mb-10 break-keep">
+                        단순한 이론이 아닌 현장에서 직접 발로 뛰며 축적한 노하우(Know-how)를 바탕으로 현재의 시장을 가장 정확하게 분석합니다. 탄탄한 경험 기반의 조직력과 체계적인 사업 방식으로 귀사의 명확한 길잡이가 되어드리겠습니다.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6 border-y border-gray-200 py-8 mb-8">
+                        <div>
+                            <div class="text-4xl font-serif font-bold text-corporate-900 mb-2">2001<span class="text-sm font-sans text-gray-500 font-normal">년~</span></div>
+                            <div class="text-sm text-gray-500 font-medium">풍부한 프로젝트 수행 경험</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-serif font-bold text-corporate-900 mb-2">100<span class="text-corporate-gold">+</span></div>
+                            <div class="text-sm text-gray-500 font-medium">성공적인 개발/분양 레퍼런스</div>
+                        </div>
+                    </div>
+
+                    <!-- 임원진 팝업 호출 버튼 -->
+                    <button onclick="openTeamModal()" class="group flex items-center gap-3 text-corporate-900 font-bold hover:text-corporate-gold transition-colors">
+                        <span class="border-b-2 border-corporate-900 group-hover:border-corporate-gold pb-1 transition-colors">주요 임원진 프로필 보기</span>
+                        <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </button>
+
+                </div>
+                <div class="relative">
+                    <!-- 우측 이미지: 확실하게 검증된 '서울 롯데월드타워와 한강, 그리고 맑은 하늘' 사진으로 교체 -->
+                    <img src="https://images.unsplash.com/photo-1546874177-9e664107314e?auto=format&fit=crop&q=80&w=2069" alt="Seoul Han River and Modern Architecture" class="rounded-lg shadow-2xl opacity-95 hover:opacity-100 transition-opacity duration-500 w-full object-cover h-[600px]">
+                    <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-lg border border-gray-100 shadow-xl hidden md:block z-10">
+                        <p class="text-corporate-gold font-bold text-lg mb-1">CEO'S GREETING</p>
+                        <p class="text-gray-600 text-sm">"고객의 수익창출을 극대화 시킬 수 있도록<br>최선을 다할 것을 약속드립니다."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Area Section -->
+    <section id="business" class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <p class="text-corporate-gold font-bold tracking-widest uppercase mb-2">Business Area</p>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-corporate-900 break-keep">핵심 사업 영역</h2>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto font-light">각 분야의 전문가들로 구성된 조직 체계를 통해 최적의 결과를 도출합니다.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Development (클릭 이벤트 유지) -->
+                <div onclick="openDevProcessModal()" class="service-card bg-white border border-gray-200 p-8 rounded-lg cursor-pointer relative overflow-hidden group">
+                    <div class="w-12 h-12 bg-gray-50 rounded flex items-center justify-center mb-6 text-corporate-gold group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-corporate-900 mb-3 flex items-center justify-between">
+                        부동산 개발사업
+                        <svg class="w-5 h-5 text-gray-300 group-hover:text-corporate-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </h3>
+                    <p class="text-gray-500 text-sm mb-4 font-medium">Development</p>
+                    <ul class="text-gray-600 text-sm space-y-2 font-light">
+                        <li>· 자체 개발 사업</li>
+                        <li>· 지주 공동 개발 사업</li>
+                        <li>· 도심 재개발 / 재건축</li>
+                        <li>· 인·허가 및 타당성 검토</li>
+                    </ul>
+                </div>
+
+                <!-- Marketing (클릭 이벤트 유지) -->
+                <div onclick="openMktProcessModal()" class="service-card bg-white border border-gray-200 p-8 rounded-lg cursor-pointer relative overflow-hidden group">
+                    <div class="w-12 h-12 bg-gray-50 rounded flex items-center justify-center mb-6 text-corporate-gold group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-corporate-900 mb-3 flex items-center justify-between">
+                        부동산 마케팅
+                        <svg class="w-5 h-5 text-gray-300 group-hover:text-corporate-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </h3>
+                    <p class="text-gray-500 text-sm mb-4 font-medium">Marketing</p>
+                    <ul class="text-gray-600 text-sm space-y-2 font-light">
+                        <li>· 부동산 분양 / 임대 대행</li>
+                        <li>· 부동산 매입 / 매각 대행</li>
+                        <li>· 영업 전략 및 마케팅 계획</li>
+                        <li>· 타겟 고객 분석 (DB 관리)</li>
+                    </ul>
+                </div>
+
+                <!-- Ad Agency (클릭 이벤트 유지) -->
+                <div onclick="openAdAgencyModal()" class="service-card bg-white border border-gray-200 p-8 rounded-lg cursor-pointer relative overflow-hidden group">
+                    <div class="w-12 h-12 bg-gray-50 rounded flex items-center justify-center mb-6 text-corporate-gold group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-corporate-900 mb-3 flex items-center justify-between">
+                        분양광고 대행
+                        <svg class="w-5 h-5 text-gray-300 group-hover:text-corporate-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </h3>
+                    <p class="text-gray-500 text-sm mb-4 font-medium">Ad Agency</p>
+                    <ul class="text-gray-600 text-sm space-y-2 font-light">
+                        <li>· 분양 광고 기획 / 제작</li>
+                        <li>· 홍보물 디자인 기획</li>
+                        <li>· 온라인 마케팅 기획</li>
+                        <li>· 경쟁 환경 및 SWOT 분석</li>
+                    </ul>
+                </div>
+
+                <!-- Facility Management -->
+                <div class="service-card bg-white border border-gray-200 p-8 rounded-lg cursor-pointer relative overflow-hidden group">
+                    <div class="w-12 h-12 bg-gray-50 rounded flex items-center justify-center mb-6 text-corporate-gold">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-corporate-900 mb-3">건물 시설 관리</h3>
+                    <p class="text-gray-500 text-sm mb-4 font-medium">Facility Management</p>
+                    <ul class="text-gray-600 text-sm space-y-2 font-light">
+                        <li>· 시설 및 보안 관리</li>
+                        <li>· 미화 및 주차 관리</li>
+                        <li>· CS 관리 및 민원 처리</li>
+                        <li>· 운영 계획 및 사후 관리</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partnership Section -->
+    <section id="partners" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <p class="text-corporate-gold font-bold tracking-widest uppercase mb-2">Partnership</p>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-corporate-900 break-keep">함께하는 파트너</h2>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto font-light">각 분야 최고의 전문 기업들과 협력하여 완벽한 프로젝트를 완성합니다.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-10">
+                <div class="border-t-2 border-corporate-900 pt-5 hover:-translate-y-1 transition-transform">
+                    <h4 class="text-lg font-bold text-corporate-900 mb-3">건축 및 설계</h4>
+                    <p class="text-gray-600 font-light text-sm leading-relaxed">호암엔지니어링, 파랑건축</p>
+                </div>
+                <div class="border-t-2 border-corporate-900 pt-5 hover:-translate-y-1 transition-transform">
+                    <h4 class="text-lg font-bold text-corporate-900 mb-3">M/H 디자인 설계 및 건축</h4>
+                    <p class="text-gray-600 font-light text-sm leading-relaxed">STUDIO HO 820</p>
+                </div>
+                <div class="border-t-2 border-corporate-900 pt-5 hover:-translate-y-1 transition-transform">
+                    <h4 class="text-lg font-bold text-corporate-900 mb-3">분양광고 기획 및 제작</h4>
+                    <p class="text-gray-600 font-light text-sm leading-relaxed">쵸콜릿 커뮤니케이션</p>
+                </div>
+                <div class="border-t-2 border-corporate-900 pt-5 hover:-translate-y-1 transition-transform">
+                    <h4 class="text-lg font-bold text-corporate-900 mb-3">분양업무 파트너쉽</h4>
+                    <p class="text-gray-600 font-light text-sm leading-relaxed">현지 종합개발, 세븐파트너스, 씨엘 메이슨, 태풍건설, 팜파트너스, 비스타 컨설팅</p>
+                </div>
+                <div class="border-t-2 border-corporate-900 pt-5 hover:-translate-y-1 transition-transform">
+                    <h4 class="text-lg font-bold text-corporate-900 mb-3">세무 자문</h4>
+                    <p class="text-gray-600 font-light text-sm leading-relaxed">전병훈 세무 사무소</p>
+                </div>
+                <div class="border-t-2 border-corporate-900 pt-5 hover:-translate-y-1 transition-transform">
+                    <h4 class="text-lg font-bold text-corporate-900 mb-3">법무 자문</h4>
+                    <p class="text-gray-600 font-light text-sm leading-relaxed">유상혁 법무 사무소</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-corporate-900 py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-8">
+            <div>
+                <div class="text-2xl font-serif font-bold text-white mb-4">지상 P&D<span class="text-corporate-gold">.</span></div>
+                <p class="text-gray-400 text-sm leading-relaxed mb-6 font-light">
+                    신뢰할 수 있는 기업이 되도록 꾸준히 노력하겠습니다.<br>
+                    최소의 자본으로 최대의 이익을 위해 최고의 파트너가 되어드립니다.
+                </p>
+            </div>
+            <div class="md:text-right">
+                <p class="text-white font-medium mb-2">Contact Us</p>
+                <p class="text-gray-400 text-sm font-light mb-1">대표: 최용수</p>
+                <p class="text-gray-400 text-sm font-light mb-1">소재지: 경기도 광주시 순암로 16-10 스카이타워 303호</p>
+                <p class="text-corporate-gold font-bold text-lg mt-4">031) 768-4522</p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+            &copy; 2026 주식회사 지상 P&D. All rights reserved.
+        </div>
+    </footer>
+
+
+    <!-- ==================== MODALS SECTION ==================== -->
+
+    <!-- 임원진 프로필 모달 -->
+    <div id="team-modal" class="fixed inset-0 z-[100] hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-0 sm:p-6 transition-opacity">
+        <div class="bg-corporate-light w-full h-full sm:h-auto max-w-6xl max-h-full sm:max-h-[90vh] rounded-none sm:rounded-xl shadow-2xl flex flex-col relative overflow-hidden">
+            <div class="px-6 sm:px-8 py-4 sm:py-6 border-b border-gray-200 bg-white flex justify-between items-center sticky top-0 z-10">
+                <div>
+                    <h3 class="text-2xl font-serif font-bold text-corporate-900">핵심 전문가 그룹</h3>
+                    <p class="text-sm text-gray-500 mt-1">Data-Driven Experts of Jisang P&D</p>
+                </div>
+                <button onclick="closeTeamModal()" class="text-gray-400 hover:text-red-500 transition-colors bg-gray-100 hover:bg-red-50 rounded-full p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="px-5 sm:px-8 py-6 sm:py-8 overflow-y-auto modal-scroll bg-gray-50 flex-1">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg transition-all flex flex-col h-full">
+                        <div class="text-corporate-gold text-xs font-bold tracking-wider mb-2">DEVELOPMENT & PLANNING</div>
+                        <div class="flex items-baseline gap-2 mb-2">
+                            <h4 class="text-xl font-bold text-corporate-900">신창오</h4>
+                            <span class="text-sm font-medium text-gray-500">총괄이사</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4 pb-4 border-b border-gray-100 font-medium min-h-[48px] flex-shrink-0">회사의 전체 사업 방향성 총괄 및 프로젝트 최종 의사결정</p>
+                        <ul class="text-sm text-gray-600 space-y-2 font-light flex-1 break-keep">
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>(주)지상플래닝 대표</span></li>
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>(주)세원넥스트 총괄본부장</span></li>
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>(주)한성D&P 이사</span></li>
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>분양기획 대행 및 시행 PM (2002년~)</span></li>
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>부동산 개발 전문인력(디벨로퍼) 자격</span></li>
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>광운대 경제매매컨설팅 과정 수료</span></li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg transition-all flex flex-col h-full">
+                        <div class="text-corporate-gold text-xs font-bold tracking-wider mb-2">DEVELOPMENT & PLANNING</div>
+                        <div class="flex items-baseline gap-2 mb-2">
+                            <h4 class="text-xl font-bold text-corporate-900">김종민</h4>
+                            <span class="text-sm font-medium text-gray-500">기획·분양 총괄</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4 pb-4 border-b border-gray-100 font-medium min-h-[48px] flex-shrink-0">부동산 개발 타당성 분석, 상품 기획 및 경제성 검토</p>
+                        <ul class="text-sm text-gray-600 space-y-2 font-light flex-1 break-keep">
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>(주)디알엠씨티 기획실장</span></li>
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>(주)세원넥스트 기획실장</span></li>
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>공동주택 시행 및 분양기획 (2012년~)</span></li>
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>AI·빅데이터 기반 입지/상권/수익성 분석</span></li>
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>최적의 개발 전략 수립</span></li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg transition-all flex flex-col h-full">
+                        <div class="text-corporate-gold text-xs font-bold tracking-wider mb-2">DEVELOPMENT & MANAGER</div>
+                        <div class="flex items-baseline gap-2 mb-2">
+                            <h4 class="text-xl font-bold text-corporate-900">박정관</h4>
+                            <span class="text-sm font-medium text-gray-500">현장 PM 총괄</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4 pb-4 border-b border-gray-100 font-medium min-h-[48px] flex-shrink-0">프로젝트 실행(설계·시공·분양) 전반의 현장 통합 관리</p>
+                        <ul class="text-sm text-gray-600 space-y-2 font-light flex-1 break-keep">
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>현대 라펜트힐, 아클레드 청담 관리 본부장</span></li>
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>아크로(디셀렉션) 속초 관리 본부장</span></li>
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>아클라우드(대우건설) 관리 본부장</span></li>
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>(주)상지더 블란츠 관리이사</span></li>
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>공동주택 분양 및 프로젝트 관리 (2003년~)</span></li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg transition-all flex flex-col h-full">
+                        <div class="text-corporate-gold text-xs font-bold tracking-wider mb-2">CONSULTANT</div>
+                        <div class="flex items-baseline gap-2 mb-2">
+                            <h4 class="text-xl font-bold text-corporate-900">임성호</h4>
+                            <span class="text-sm font-medium text-gray-500">부동산학 박사</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4 pb-4 border-b border-gray-100 font-medium min-h-[48px] flex-shrink-0">부동산 개발·도시재생·토지이용 학술 기반 고급 자문</p>
+                        <ul class="text-sm text-gray-600 space-y-2 font-light flex-1 break-keep">
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>강원대학교 부동산학 박사</span></li>
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>전주대학교 부동산학과</span></li>
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>국토연구원 근무</span></li>
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>성남 도시재생센터 팀장</span></li>
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>(주)비스타컨설팅 지역개발고문위원</span></li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg transition-all flex flex-col h-full">
+                        <div class="text-corporate-gold text-xs font-bold tracking-wider mb-2">INSIGHT STRATEGIST</div>
+                        <div class="flex items-baseline gap-2 mb-2">
+                            <h4 class="text-xl font-bold text-corporate-900">윤성호</h4>
+                            <span class="text-sm font-medium text-gray-500">공학 박사</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4 pb-4 border-b border-gray-100 font-medium min-h-[48px] flex-shrink-0">AI·빅데이터 활용 예측 모델링 및 전략적 인사이트 제공</p>
+                        <ul class="text-sm text-gray-600 space-y-2 font-light flex-1 break-keep">
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>한국 PwC 컨설팅 Director</span></li>
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>데이터 분석가</span></li>
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>연세대학교 겸임교수</span></li>
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>다수의 금융기관 컨설팅 전문 수행</span></li>
+                            <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>데이터 기반 개발 의사결정 지원</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1. 부동산 개발사업 프로세스 모달 -->
+    <div id="dev-process-modal" class="fixed inset-0 z-[110] hidden bg-black/70 backdrop-blur-md flex items-center justify-center p-0 sm:p-6 transition-opacity duration-300 opacity-0">
+        <div class="bg-white w-full h-full sm:h-auto max-w-6xl max-h-full sm:max-h-[95vh] rounded-none sm:rounded-2xl shadow-2xl flex flex-col relative overflow-hidden">
+            <div class="px-6 sm:px-8 py-4 sm:py-5 border-b border-gray-100 bg-white flex justify-between items-center sticky top-0 z-20">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-corporate-900 rounded-lg flex items-center justify-center text-corporate-gold">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-serif font-bold text-corporate-900 break-keep">부동산 개발사업<span class="block text-[11px] sm:text-xs font-sans font-normal text-gray-400 mt-1 uppercase tracking-wider">DEVELOPMENT PROCESS</span></h3>
+                    </div>
+                </div>
+                <button onclick="closeDevProcessModal()" class="text-gray-400 hover:text-red-500 transition-colors bg-gray-50 hover:bg-red-50 rounded-full p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="overflow-y-auto modal-scroll bg-gray-50 flex-1">
+                <div class="bg-corporate-900 text-white px-8 py-16 text-center relative overflow-hidden">
+                    <div class="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
+                    <div class="relative z-10 max-w-4xl mx-auto">
+                        <h2 class="text-3xl md:text-5xl font-serif font-bold mb-6 leading-tight">우리의 목표는<br><span class="text-corporate-gold">고객의 사업성공</span>입니다!</h2>
+                        <p class="text-lg md:text-xl text-gray-300 font-light mb-8 break-keep">합리적인 개발 계획, 효율적인 설계 및 시공계획으로 사업주에게 최고의 이익을 창출하겠습니다.</p>
+                        <div class="w-16 h-1 bg-corporate-gold mx-auto mb-8"></div>
+                        <p class="text-sm md:text-base text-gray-400 leading-relaxed font-light break-keep">
+                            최소의 자본으로 최대의 이익을 위해 최고의 사람들이 귀사의 성공사업을 도와드리겠습니다.<br>
+                            개발사업의 가장 중요한 핵심은 사업이윤의 최대창출입니다. 사업지 조사에서 사업수지분석, 대관업무 및 관리에 이르기까지<br>
+                            광범위한 사업영역을 전문지식으로 무장된 사람들과 함께 하신다면 성공하실 수 있습니다.<br>
+                            귀하께서 찾으시던 최대의 이익창출을 위한 최고의 비즈니스 파트너 입니다.
+                        </p>
+                    </div>
+                </div>
+                <div class="px-8 py-16 max-w-6xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h3 class="text-2xl font-serif font-bold text-corporate-900 break-keep">개발사업 수행 프로세스</h3>
+                        <p class="text-gray-500 mt-2 font-light">체계적이고 과학적인 8단계 마스터플랜</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:border-corporate-gold transition-colors relative">
+                            <div class="text-4xl font-bold text-gray-100 absolute top-4 right-4 z-0">01</div>
+                            <div class="relative z-10">
+                                <h4 class="text-lg font-bold text-corporate-900 mb-1">개발가능지 선정</h4>
+                                <p class="text-xs text-corporate-gold mb-4 uppercase tracking-wider">Selection of Site</p>
+                                <ul class="text-sm text-gray-600 space-y-2 font-light list-disc list-inside">
+                                    <li>개발 상담</li>
+                                    <li>용지 조사</li>
+                                    <li>입지 선정</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:border-corporate-gold transition-colors relative">
+                            <div class="text-4xl font-bold text-gray-100 absolute top-4 right-4 z-0">02</div>
+                            <div class="relative z-10">
+                                <h4 class="text-lg font-bold text-corporate-900 mb-1">개발여건 검토</h4>
+                                <p class="text-xs text-corporate-gold mb-4 uppercase tracking-wider">Study of Parameters</p>
+                                <ul class="text-sm text-gray-600 space-y-2 font-light list-disc list-inside">
+                                    <li>입지환경 검토</li>
+                                    <li>관련법규 검토</li>
+                                    <li>사업타당성 검토</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:border-corporate-gold transition-colors relative">
+                            <div class="text-4xl font-bold text-gray-100 absolute top-4 right-4 z-0">03</div>
+                            <div class="relative z-10">
+                                <h4 class="text-lg font-bold text-corporate-900 mb-1">개발방향 설정</h4>
+                                <p class="text-xs text-corporate-gold mb-4 uppercase tracking-wider">Setting Directions</p>
+                                <ul class="text-sm text-gray-600 space-y-2 font-light list-disc list-inside">
+                                    <li>개발주체 결정</li>
+                                    <li>사업시행 방법</li>
+                                    <li>계획 설계</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:border-corporate-gold transition-colors relative">
+                            <div class="text-4xl font-bold text-gray-100 absolute top-4 right-4 z-0">04</div>
+                            <div class="relative z-10">
+                                <h4 class="text-lg font-bold text-corporate-900 mb-1">개발 기본계획</h4>
+                                <p class="text-xs text-corporate-gold mb-4 uppercase tracking-wider">Master Plan</p>
+                                <ul class="text-sm text-gray-600 space-y-2 font-light list-disc list-inside">
+                                    <li>개발컨셉 설정</li>
+                                    <li>개발규모 산정</li>
+                                    <li>Cash Flow 분석</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:border-corporate-gold transition-colors relative">
+                            <div class="text-4xl font-bold text-gray-100 absolute top-4 right-4 z-0">05</div>
+                            <div class="relative z-10">
+                                <h4 class="text-lg font-bold text-corporate-900 mb-1">인허가 업무수행</h4>
+                                <p class="text-xs text-corporate-gold mb-4 uppercase tracking-wider">Authorization & Permit</p>
+                                <ul class="text-sm text-gray-600 space-y-2 font-light list-disc list-inside">
+                                    <li>건축허가 등 대관업무</li>
+                                    <li>기본 설계 수행</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:border-corporate-gold transition-colors relative">
+                            <div class="text-4xl font-bold text-gray-100 absolute top-4 right-4 z-0">06</div>
+                            <div class="relative z-10">
+                                <h4 class="text-lg font-bold text-corporate-900 mb-1">조사 및 설계</h4>
+                                <p class="text-xs text-corporate-gold mb-4 uppercase tracking-wider">Survey and Design</p>
+                                <ul class="text-sm text-gray-600 space-y-2 font-light list-disc list-inside">
+                                    <li>계획 설계 조정</li>
+                                    <li>공사용 도서작성</li>
+                                    <li>실시 설계 및 진행관리</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:border-corporate-gold transition-colors relative">
+                            <div class="text-4xl font-bold text-gray-100 absolute top-4 right-4 z-0">07</div>
+                            <div class="relative z-10">
+                                <h4 class="text-lg font-bold text-corporate-900 mb-1">시공 및 관리</h4>
+                                <p class="text-xs text-corporate-gold mb-4 uppercase tracking-wider">Construction & Mgt</p>
+                                <ul class="text-sm text-gray-600 space-y-2 font-light list-disc list-inside">
+                                    <li>착공 전 사전조사</li>
+                                    <li>시공사 선정 및 M/H건립</li>
+                                    <li>분양계획, 업무, 민원처리</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:border-corporate-gold transition-colors relative">
+                            <div class="text-4xl font-bold text-gray-100 absolute top-4 right-4 z-0">08</div>
+                            <div class="relative z-10">
+                                <h4 class="text-lg font-bold text-corporate-900 mb-1">관리 및 운영</h4>
+                                <p class="text-xs text-corporate-gold mb-4 uppercase tracking-wider">Management & Operation</p>
+                                <ul class="text-sm text-gray-600 space-y-2 font-light list-disc list-inside">
+                                    <li>관리운영 계획 수립</li>
+                                    <li>사용 검사</li>
+                                    <li>사후 관리</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-16 text-center pb-8">
+                        <button onclick="openDevRecordsModal()" class="inline-flex items-center gap-3 px-8 py-4 bg-corporate-900 text-white font-bold rounded shadow-xl hover:bg-corporate-gold hover:text-white transition-all transform hover:-translate-y-1">
+                            개발사업 실적 보기
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. 부동산 개발사업 실적 모달 -->
+    <div id="dev-records-modal" class="fixed inset-0 z-[120] hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-0 sm:p-6 transition-opacity duration-300 opacity-0">
+        <div class="bg-white w-full h-full sm:h-auto max-w-4xl max-h-full sm:max-h-[85vh] rounded-none sm:rounded-2xl shadow-2xl flex flex-col relative overflow-hidden">
+            <div class="px-6 sm:px-8 py-4 sm:py-5 border-b border-gray-100 bg-white flex justify-between items-center sticky top-0 z-20">
+                <div class="flex items-center gap-3">
+                    <svg class="w-6 h-6 text-corporate-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    <h3 class="text-xl font-serif font-bold text-corporate-900">부동산 개발사업 실적</h3>
+                </div>
+                <button onclick="closeDevRecordsModal()" class="text-gray-400 hover:text-red-500 transition-colors bg-gray-50 hover:bg-red-50 rounded-full p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                </button>
+            </div>
+            <div class="p-8 overflow-y-auto modal-scroll bg-gray-50 flex-1">
+                <div class="relative border-l-2 border-gray-200 ml-3 md:ml-6 space-y-10 py-4">
+                    <div class="relative pl-8 md:pl-10">
+                        <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-corporate-gold border-4 border-white shadow"></div>
+                        <div class="text-xl font-bold text-corporate-900 mb-4">2024년</div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded-lg border border-gray-100 shadow-sm"><h5 class="font-bold text-gray-800">건대입구역 자이엘라</h5><p class="text-sm text-gray-500 mt-1">시행기획업무 대행</p></div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-100 shadow-sm"><h5 class="font-bold text-gray-800">문래동 파인그라드 클리닉상가</h5><p class="text-sm text-gray-500 mt-1">시행PM 및 임대/입주관리</p></div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-100 shadow-sm"><h5 class="font-bold text-gray-800">위파크 제주</h5><p class="text-sm text-gray-500 mt-1">분양기획업무 대행</p></div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-100 shadow-sm"><h5 class="font-bold text-gray-800">루카831 오피스텔</h5><p class="text-sm text-gray-500 mt-1">분양기획업무 대행</p></div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-100 shadow-sm"><h5 class="font-bold text-gray-800">화성비봉 금성백조 예미지2차</h5><p class="text-sm text-gray-500 mt-1">분양기획업무 대행</p></div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-100 shadow-sm"><h5 class="font-bold text-gray-800">대전관평 예미지 어반코어</h5><p class="text-sm text-gray-500 mt-1">분양기획업무 대행</p></div>
+                        </div>
+                    </div>
+                    <div class="relative pl-8 md:pl-10">
+                        <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-corporate-700 border-4 border-white shadow"></div>
+                        <div class="text-xl font-bold text-corporate-900 mb-2">2017년</div>
+                        <div class="bg-white p-4 rounded-lg border border-gray-100 shadow-sm inline-block w-full md:w-auto min-w-[300px]"><h5 class="font-bold text-gray-800">남양주 단독주택</h5><p class="text-sm text-gray-500 mt-1">대지조성 프로젝트 수행</p></div>
+                    </div>
+                    <div class="relative pl-8 md:pl-10">
+                        <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-corporate-700 border-4 border-white shadow"></div>
+                        <div class="text-xl font-bold text-corporate-900 mb-2">2016년</div>
+                        <div class="bg-white p-4 rounded-lg border border-gray-100 shadow-sm inline-block w-full md:w-auto min-w-[300px]"><h5 class="font-bold text-gray-800">제주 첨단과학기술단지 한화꿈에그린</h5><p class="text-sm text-gray-500 mt-1">759세대 / 시행PM 및 분양, 입주관리</p></div>
+                    </div>
+                    <div class="relative pl-8 md:pl-10">
+                        <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-corporate-700 border-4 border-white shadow"></div>
+                        <div class="text-xl font-bold text-corporate-900 mb-2">2011년</div>
+                        <div class="bg-white p-4 rounded-lg border border-gray-100 shadow-sm inline-block w-full md:w-auto min-w-[300px]"><h5 class="font-bold text-gray-800">제주 아라 아이파크</h5><p class="text-sm text-gray-500 mt-1">614세대 / 기획 및 분양, 입주관리</p></div>
+                    </div>
+                    <div class="relative pl-8 md:pl-10">
+                        <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-corporate-700 border-4 border-white shadow"></div>
+                        <div class="text-xl font-bold text-corporate-900 mb-2">2009년</div>
+                        <div class="bg-white p-4 rounded-lg border border-gray-100 shadow-sm inline-block w-full md:w-auto min-w-[300px]"><h5 class="font-bold text-gray-800">구로동 파인마루 오피스텔</h5><p class="text-sm text-gray-500 mt-1">230세대 / 시행PM 및 분양, 입주관리</p></div>
+                    </div>
+                    <div class="relative pl-8 md:pl-10">
+                        <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-corporate-700 border-4 border-white shadow"></div>
+                        <div class="text-xl font-bold text-corporate-900 mb-2">2008년</div>
+                        <div class="bg-white p-4 rounded-lg border border-gray-100 shadow-sm inline-block w-full md:w-auto min-w-[300px]"><h5 class="font-bold text-gray-800">충북괴산 목도 타운하우스</h5><p class="text-sm text-gray-500 mt-1">토지개발 및 주택개발 사업 수행</p></div>
+                    </div>
+                    <div class="relative pl-8 md:pl-10">
+                        <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-corporate-700 border-4 border-white shadow"></div>
+                        <div class="text-xl font-bold text-corporate-900 mb-2">2007년</div>
+                        <div class="bg-white p-4 rounded-lg border border-gray-100 shadow-sm inline-block w-full md:w-auto min-w-[300px]"><h5 class="font-bold text-gray-800">신풍역 한화꿈에그린 공동주택</h5><p class="text-sm text-gray-500 mt-1">480세대 / 기획 및 분양, 입주관리</p></div>
+                    </div>
+                    <div class="relative pl-8 md:pl-10">
+                        <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-corporate-700 border-4 border-white shadow"></div>
+                        <div class="text-xl font-bold text-corporate-900 mb-2">2004년</div>
+                        <div class="bg-white p-4 rounded-lg border border-gray-100 shadow-sm inline-block w-full md:w-auto min-w-[300px]"><h5 class="font-bold text-gray-800">대학로 에비뉴 시네마 상가</h5><p class="text-sm text-gray-500 mt-1">시행PM 및 분양관리</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. 부동산 마케팅 프로세스 모달 -->
+    <div id="mkt-process-modal" class="fixed inset-0 z-[110] hidden bg-black/70 backdrop-blur-md flex items-center justify-center p-0 sm:p-6 transition-opacity duration-300 opacity-0">
+        <div class="bg-white w-full h-full sm:h-auto max-w-6xl max-h-full sm:max-h-[95vh] rounded-none sm:rounded-2xl shadow-2xl flex flex-col relative overflow-hidden">
+            <div class="px-6 sm:px-8 py-4 sm:py-5 border-b border-gray-100 bg-white flex justify-between items-center sticky top-0 z-20">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-corporate-900 rounded-lg flex items-center justify-center text-corporate-gold">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-serif font-bold text-corporate-900 break-keep">부동산 마케팅<span class="block text-[11px] sm:text-xs font-sans font-normal text-gray-400 mt-1 uppercase tracking-wider">MARKETING & CONSULTING PROCESS</span></h3>
+                    </div>
+                </div>
+                <button onclick="closeMktProcessModal()" class="text-gray-400 hover:text-red-500 transition-colors bg-gray-50 hover:bg-red-50 rounded-full p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="overflow-y-auto modal-scroll bg-gray-50 flex-1">
+                <div class="bg-corporate-900 text-white px-8 py-16 text-center relative overflow-hidden">
+                    <div class="absolute inset-0 opacity-15 bg-[url('https://images.unsplash.com/photo-1554469384-e58fac16e23a?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
+                    <div class="relative z-10 max-w-4xl mx-auto">
+                        <h2 class="text-2xl sm:text-3xl md:text-5xl font-serif font-bold mb-6 leading-tight break-keep">귀사의 <span class="text-corporate-gold">성공사업</span>을 위하여</h2>
+                        <p class="text-lg md:text-xl text-gray-300 font-light mb-8 break-keep">전문인력에 의한 정확한 사업방향 제시로 성공의 길을 열겠습니다.</p>
+                        <div class="w-16 h-1 bg-corporate-gold mx-auto mb-8"></div>
+                        <p class="text-sm md:text-base text-gray-400 leading-relaxed font-light break-keep">
+                            철저한 사전조사, 정확한 사업방향 설정은 성공을 가늠하는 열쇠입니다.<br>
+                            첨단 정보와 풍부한 경험을 가진 전문인력의 컨설팅만이 귀사의 성공을 가져다 줄 수 있습니다.<br>
+                            젊은 기업의 Man Power를 지금 만나 보십시오. 귀사의 사업에 확실한 성공열쇠를 드리겠습니다.
+                        </p>
+                    </div>
+                </div>
+                <div class="px-8 py-16 max-w-7xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h3 class="text-2xl font-serif font-bold text-corporate-900 break-keep">마케팅 및 컨설팅 수행 프로세스</h3>
+                        <p class="text-gray-500 mt-2 font-light">데이터와 경험 기반의 5단계 성공 전략</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:border-corporate-gold transition-colors relative flex flex-col h-full">
+                            <div class="text-4xl font-bold text-gray-100 absolute top-4 right-4 z-0">01</div>
+                            <div class="relative z-10 flex-1">
+                                <h4 class="text-lg font-bold text-corporate-900 mb-1">시장조사 및 분석</h4>
+                                <p class="text-[10px] text-corporate-gold mb-4 uppercase tracking-wider font-bold">Market research and analysis</p>
+                                <div class="w-8 h-0.5 bg-gray-200 mb-4"></div>
+                                <ul class="text-[13px] text-gray-600 space-y-2 font-light list-disc list-inside">
+                                    <li>공급 및 수요현황</li>
+                                    <li>분석 및 예측</li>
+                                    <li>유사사례 및 경쟁구조 분석</li>
+                                    <li>잠재 고객분석 (수요자 형태분석)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:border-corporate-gold transition-colors relative flex flex-col h-full">
+                            <div class="text-4xl font-bold text-gray-100 absolute top-4 right-4 z-0">02</div>
+                            <div class="relative z-10 flex-1">
+                                <h4 class="text-lg font-bold text-corporate-900 mb-1">개발환경 분석</h4>
+                                <p class="text-[10px] text-corporate-gold mb-4 uppercase tracking-wider font-bold">Development environment analysis</p>
+                                <div class="w-8 h-0.5 bg-gray-200 mb-4"></div>
+                                <ul class="text-[13px] text-gray-600 space-y-2 font-light list-disc list-inside">
+                                    <li>사회환경 분석</li>
+                                    <li>입지환경 분석</li>
+                                    <li>정책환경 분석</li>
+                                    <li>SWOT분석 및 벤치마킹</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:border-corporate-gold transition-colors relative flex flex-col h-full">
+                            <div class="text-4xl font-bold text-gray-100 absolute top-4 right-4 z-0">03</div>
+                            <div class="relative z-10 flex-1">
+                                <h4 class="text-lg font-bold text-corporate-900 mb-1">개발 계획</h4>
+                                <p class="text-[10px] text-corporate-gold mb-4 uppercase tracking-wider font-bold">Development programming</p>
+                                <div class="w-8 h-0.5 bg-gray-200 mb-4"></div>
+                                <ul class="text-[13px] text-gray-600 space-y-2 font-light list-disc list-inside">
+                                    <li>표적시장 설정 및 수요 분석</li>
+                                    <li>도입시설 및 업종계획 수립</li>
+                                    <li>개발 Concept설정</li>
+                                    <li>Zoning & Layout</li>
+                                    <li>가격구조 분석</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:border-corporate-gold transition-colors relative flex flex-col h-full">
+                            <div class="text-4xl font-bold text-gray-100 absolute top-4 right-4 z-0">04</div>
+                            <div class="relative z-10 flex-1">
+                                <h4 class="text-lg font-bold text-corporate-900 mb-1">사업성 분석</h4>
+                                <p class="text-[10px] text-corporate-gold mb-4 uppercase tracking-wider font-bold">Feasibility analysis</p>
+                                <div class="w-8 h-0.5 bg-gray-200 mb-4"></div>
+                                <ul class="text-[13px] text-gray-600 space-y-2 font-light list-disc list-inside">
+                                    <li>투자계획 (개발/건축, 관리비)</li>
+                                    <li>자금계획 (조달 및 운용)</li>
+                                    <li>사업수지분석 (매출, 손익추정)</li>
+                                    <li>사업가치 및 민감도 분석 (NPV, IRR등)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:border-corporate-gold transition-colors relative flex flex-col h-full">
+                            <div class="text-4xl font-bold text-gray-100 absolute top-4 right-4 z-0">05</div>
+                            <div class="relative z-10 flex-1">
+                                <h4 class="text-lg font-bold text-corporate-900 mb-1">마케팅 전략수립</h4>
+                                <p class="text-[10px] text-corporate-gold mb-4 uppercase tracking-wider font-bold">Establishment of Marketing Strategies</p>
+                                <div class="w-8 h-0.5 bg-gray-200 mb-4"></div>
+                                <ul class="text-[13px] text-gray-600 space-y-2 font-light list-disc list-inside">
+                                    <li>경쟁환경 분석</li>
+                                    <li>사업대상 이미지 설정</li>
+                                    <li>광고홍보 기획</li>
+                                    <li>마케팅 세부전략 수립</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. [분양광고 대행] 실적 통합 모달 -->
+    <div id="ad-agency-modal" class="fixed inset-0 z-[110] hidden bg-black/70 backdrop-blur-md flex items-center justify-center p-0 sm:p-6 transition-opacity duration-300 opacity-0">
+        <div class="bg-white w-full h-full sm:h-auto max-w-6xl max-h-full sm:max-h-[95vh] rounded-none sm:rounded-2xl shadow-2xl flex flex-col relative overflow-hidden">
+            <div class="px-6 sm:px-8 py-4 sm:py-5 border-b border-gray-100 bg-white flex justify-between items-center sticky top-0 z-20">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-corporate-900 rounded-lg flex items-center justify-center text-corporate-gold">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-serif font-bold text-corporate-900 break-keep">분양광고 대행 및 종합 실적<span class="block text-[11px] sm:text-xs font-sans font-normal text-gray-400 mt-1 uppercase tracking-wider">AD AGENCY & PORTFOLIO</span></h3>
+                    </div>
+                </div>
+                <button onclick="closeAdAgencyModal()" class="text-gray-400 hover:text-red-500 transition-colors bg-gray-50 hover:bg-red-50 rounded-full p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="overflow-y-auto modal-scroll bg-gray-50 flex-1">
+                <div class="bg-corporate-900 text-white px-8 py-16 text-center relative overflow-hidden">
+                    <div class="absolute inset-0 opacity-15 bg-[url('https://images.unsplash.com/photo-1572120360610-d971b9d7767c?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
+                    <div class="relative z-10 max-w-4xl mx-auto">
+                        <h2 class="text-3xl md:text-5xl font-serif font-bold mb-6 leading-tight">완벽한 분석을 통한<br><span class="text-corporate-gold">성공 분양</span> 약속</h2>
+                        <div class="w-16 h-1 bg-corporate-gold mx-auto mb-8"></div>
+                        <p class="text-lg md:text-xl text-gray-300 font-light leading-relaxed max-w-3xl mx-auto break-keep">
+                            "완벽한 시장조사와 사업 타당성 분석을 통해 최적의 개발안을 수립하여,<br>
+                            최적의 분양 컨셉 및 전략 도출해 단기간에 성공적인 분양을 약속 드립니다."
+                        </p>
+                    </div>
+                </div>
+                <div class="px-8 py-16 max-w-6xl mx-auto space-y-16">
+                    <section>
+                        <div class="flex items-center gap-3 mb-8 border-b-2 border-corporate-900 pb-3">
+                            <span class="bg-corporate-gold w-3 h-8 rounded-sm"></span>
+                            <h3 class="text-2xl font-serif font-bold text-corporate-900 break-keep">아파트 분양실적</h3>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                                <div class="font-bold text-corporate-gold text-xl mb-4 border-b border-gray-100 pb-3">2021~2025</div>
+                                <div class="space-y-3 text-sm text-gray-600 font-light">
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2025</span><span class="flex-1 leading-relaxed">아크로 서초, 상지 더 블란츠</span></div>
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2024</span><span class="flex-1 leading-relaxed">도봉구 금호어울림 리버파크, 김포 고촌센트럴자이, 위파크 제주, 의정부역 파밀리에 1차/2차</span></div>
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2023</span><span class="flex-1 leading-relaxed">광주 위파크 더 센트럴, 아클라우드 대우, 강릉 더리브퍼스티지, 평촌 센텀퍼스트, 마포 에피트 어바닉</span></div>
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2022</span><span class="flex-1 leading-relaxed">아클래드 대림건설, 나주역 자이 리버파크, 광주 위파크 마륵공원</span></div>
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2021</span><span class="flex-1 leading-relaxed">아클라우드, 남양주 쌍용 스윗닷홈, 평택 지제역 자이</span></div>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                                <div class="font-bold text-corporate-gold text-xl mb-4 border-b border-gray-100 pb-3">2016~2019</div>
+                                <div class="space-y-3 text-sm text-gray-600 font-light">
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2019</span><span class="flex-1 leading-relaxed">이수 푸르지오, 면목 용마산 모아엘가</span></div>
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2018</span><span class="flex-1 leading-relaxed">마산 이편한세상, 시흥 센트럴 푸르지오, 김포 풍무지구 현대힐스테이트, 고성 봉포 코아루</span></div>
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2017</span><span class="flex-1 leading-relaxed">원주 동양앤파크, 리치몬드 평창, 아크로 포레스트, 장위 레미안5구역, 광주 초월역 모아미래도, 대림 창원 파크센트럴</span></div>
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2016</span><span class="flex-1 leading-relaxed">평창 선수촌 아파트, 장위 레미안1구역, 동두천 일신건영 휴먼빌, 전주 에코시티 일신건영 휴먼빌, 미사 대림 이편한세상</span></div>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                                <div class="font-bold text-corporate-700 text-xl mb-4 border-b border-gray-100 pb-3">2011~2015</div>
+                                <div class="space-y-3 text-sm text-gray-600 font-light">
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2015</span><span class="flex-1 leading-relaxed">양주옥정 대림, 양평 일신건영휴먼빌, 광교 호반건설, 광교 신영지웰, 제주 아라아이파크</span></div>
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2014</span><span class="flex-1 leading-relaxed">양주 서희스타힐스, 일산 식사지구 위시티휴먼빌, 충북제천 신동아파밀리에, 파주 한양수자인</span></div>
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2013</span><span class="flex-1 leading-relaxed">봉담 신동아 파밀리에, 서울 마포 밤섬 삼성래미안, 파주 운정지구 한양수자인</span></div>
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2012</span><span class="flex-1 leading-relaxed">남양주 쌍용 스윗닷홈, 평택 지제역 자이</span></div>
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2011</span><span class="flex-1 leading-relaxed">서울 전농동 삼성래미안, 파주 운정신도시 롯대캐슬, 아클라우드</span></div>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                                <div class="font-bold text-corporate-700 text-xl mb-4 border-b border-gray-100 pb-3">2006~2010</div>
+                                <div class="space-y-3 text-sm text-gray-600 font-light">
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2010</span><span class="flex-1 leading-relaxed">한강 신도시 자연앤힐스테이트, 남서울 힐스테이트, 파주 교하신도시 한라비발디, 일산 식사지구 자이</span></div>
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2009</span><span class="flex-1 leading-relaxed">영종하늘도시 동보건설, 가재울 뉴타운3구역, 전주 현대 엠코타운</span></div>
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2008</span><span class="flex-1 leading-relaxed">청원 오송지구 대원칸타빌, 베트남 호치민 대원칸타빌, 용인 송북 자이, 인천 청라 호반베르디움, 광교 한양 수자인</span></div>
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2007</span><span class="flex-1 leading-relaxed">남악 신도시 모아건설, 인천 계약 남광토건, 천안 천수동 경남아너스빌, 용인 상현동 현대힐스테이트, 양평 벽산 블루밍, 일산 식사지구 자이</span></div>
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2006</span><span class="flex-1 leading-relaxed">청주 강서지구 한라비발디, 청주 비산동 대주피오레, 강남 서초 경남아너스빌, 판교 한성 필하우스, 신마석 신도브래뉴</span></div>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow md:col-span-2 lg:col-span-1">
+                                <div class="font-bold text-gray-500 text-xl mb-4 border-b border-gray-100 pb-3">2001~2005</div>
+                                <div class="space-y-3 text-sm text-gray-600 font-light">
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2005</span><span class="flex-1 leading-relaxed">아산 배방한성필하우스1차, 아산 배방 한라비발디, 석림지구 한성필하우스, 포항 양덕지구 풍림아이원</span></div>
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2004</span><span class="flex-1 leading-relaxed">인천 구월동 주공 재건축, 남양주 덕소 동부센트레빌, 남양주 덕소 경남아너스빌</span></div>
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2003</span><span class="flex-1 leading-relaxed">화성 대광 파인밸리 골드, 남양주 호평 우림루미, 의정부 신곡동 한일유엔아이, 용인 동백 코아루, 아산 배방지구 한라비발디, 용인 구갈3지구 아델70</span></div>
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2002</span><span class="flex-1 leading-relaxed">화성 대광 파인밸리 임대아파트, 일산 능곡 한라비발디 리버, 부산 진포동 한라비발디</span></div>
+                                    <div class="flex items-start gap-3"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2001</span><span class="flex-1 leading-relaxed">의정부 송산지구 한라비발디, 용인 구갈3지구 한라비발디</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                        <section>
+                            <div class="flex items-center gap-3 mb-8 border-b-2 border-corporate-900 pb-3">
+                                <span class="bg-corporate-gold w-3 h-8 rounded-sm"></span>
+                                <h3 class="text-2xl font-serif font-bold text-corporate-900 break-keep">오피스텔 분양실적</h3>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                                <div class="font-bold text-corporate-gold text-xl mb-4 border-b border-gray-100 pb-3">2003~2025</div>
+                                <div class="space-y-4 text-sm text-gray-600 font-light">
+                                    <div class="flex items-start gap-4"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2025</span><span class="flex-1 leading-relaxed">대전 관평 예미지 어반코어 오피스텔</span></div>
+                                    <div class="flex items-start gap-4"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2021</span><span class="flex-1 leading-relaxed">루카 831 하이엔드 오피스텔</span></div>
+                                    <div class="flex items-start gap-4"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2020</span><span class="flex-1 leading-relaxed">건대입구역자이엘라 오피스텔, 구로동 파인마루오피스텔</span></div>
+                                    <div class="flex items-start gap-4"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2016</span><span class="flex-1 leading-relaxed">시흥 센트럴 푸르지오 오피스텔</span></div>
+                                    <div class="flex items-start gap-4"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2013</span><span class="flex-1 leading-relaxed">상암 한화오벨리스크 2차 오피스텔, 은평뉴타운 아이파크 오피스텔</span></div>
+                                    <div class="flex items-start gap-4"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2012</span><span class="flex-1 leading-relaxed">광주 상무 중흥S클레스 오피스텔</span></div>
+                                    <div class="flex items-start gap-4"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2011</span><span class="flex-1 leading-relaxed">강남 푸르지오시티 오피스텔</span></div>
+                                    <div class="flex items-start gap-4"><span class="font-bold text-corporate-900 w-10 flex-shrink-0 mt-0.5">2003</span><span class="flex-1 leading-relaxed">수원 인계동 심부르네상스 오피스텔</span></div>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="flex items-center gap-3 mb-8 border-b-2 border-corporate-900 pb-3">
+                                <span class="bg-corporate-gold w-3 h-8 rounded-sm"></span>
+                                <h3 class="text-2xl font-serif font-bold text-corporate-900 break-keep">상가 분양실적</h3>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
+                                    <div class="font-bold text-corporate-gold mb-2 border-b border-gray-100 pb-2">2017년 ~ 2022년</div>
+                                    <ul class="text-sm text-gray-600 font-light space-y-1.5 list-disc list-inside">
+                                        <li>DH테크타워 상업시설</li>
+                                        <li>진주혁신 스타플렉스</li>
+                                        <li>광안리 이편한 오션테라스 스트리트 상업시설</li>
+                                        <li>대우건설 아클라우드 상업시설</li>
+                                        <li>문래동 파인그라드 상업시설</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
+                                    <div class="font-bold text-corporate-700 mb-2 border-b border-gray-100 pb-2">2012년 ~ 2016년</div>
+                                    <ul class="text-sm text-gray-600 font-light space-y-1.5 list-disc list-inside">
+                                        <li>왕십리 3구역 센트라스</li>
+                                        <li>동탄 우미엘리스빌</li>
+                                        <li>아현 대림 상업시설</li>
+                                        <li>시흥 센트럴 푸르지오 단지내상가</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
+                                    <div class="font-bold text-gray-500 mb-2 border-b border-gray-100 pb-2">2007년 ~ 2011년</div>
+                                    <ul class="text-sm text-gray-600 font-light space-y-1.5 list-disc list-inside">
+                                        <li>구로 나인스 애비뉴</li>
+                                        <li>광주 골든힐스타우 상가</li>
+                                        <li>은평뉴타운 아이파크 단지내상가</li>
+                                        <li>동탄 반도 카림애비뉴</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
+                                    <div class="font-bold text-gray-400 mb-2 border-b border-gray-100 pb-2">2003년 ~ 2006년</div>
+                                    <ul class="text-sm text-gray-600 font-light space-y-1.5 list-disc list-inside">
+                                        <li>수원 인계동 심부르네상스 상가</li>
+                                        <li>대학로 상가</li>
+                                        <li>아산 배방 한성 필하우스 단지내상가</li>
+                                        <li>인천 계양구 신도브래뉴 단지내상가</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal 제어용 Script -->
+    <script>
+        // Mobile Menu Control
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const hamburger = document.getElementById('hamburger-icon');
+            const close = document.getElementById('close-icon');
+            const isOpen = !menu.classList.contains('pointer-events-none');
+            
+            if (isOpen) {
+                closeMobileMenu();
+            } else {
+                menu.classList.remove('pointer-events-none', '-translate-y-full', 'opacity-0');
+                menu.classList.add('translate-y-0', 'opacity-100');
+                hamburger.classList.add('hidden');
+                close.classList.remove('hidden');
+            }
+        }
+        
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const hamburger = document.getElementById('hamburger-icon');
+            const close = document.getElementById('close-icon');
+            
+            menu.classList.add('pointer-events-none', '-translate-y-full', 'opacity-0');
+            menu.classList.remove('translate-y-0', 'opacity-100');
+            hamburger.classList.remove('hidden');
+            close.classList.add('hidden');
+        }
+
+        function openTeamModal() {
+            const modal = document.getElementById('team-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.add('opacity-100'); }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+        function closeTeamModal() {
+            const modal = document.getElementById('team-modal');
+            modal.classList.remove('opacity-100');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+            document.body.style.overflow = '';
+        }
+        function openDevProcessModal() {
+            const modal = document.getElementById('dev-process-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.add('opacity-100'); }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+        function closeDevProcessModal() {
+            const modal = document.getElementById('dev-process-modal');
+            modal.classList.remove('opacity-100');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+            document.body.style.overflow = '';
+        }
+        function openDevRecordsModal() {
+            const modal = document.getElementById('dev-records-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.add('opacity-100'); }, 10);
+        }
+        function closeDevRecordsModal() {
+            const modal = document.getElementById('dev-records-modal');
+            modal.classList.remove('opacity-100');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        }
+        function openMktProcessModal() {
+            const modal = document.getElementById('mkt-process-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.add('opacity-100'); }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMktProcessModal() {
+            const modal = document.getElementById('mkt-process-modal');
+            modal.classList.remove('opacity-100');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+            document.body.style.overflow = '';
+        }
+        function openAdAgencyModal() {
+            const modal = document.getElementById('ad-agency-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.add('opacity-100'); }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+        function closeAdAgencyModal() {
+            const modal = document.getElementById('ad-agency-modal');
+            modal.classList.remove('opacity-100');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('click', function(e) {
+            if (e.target.id === 'team-modal') closeTeamModal();
+            if (e.target.id === 'dev-process-modal') closeDevProcessModal();
+            if (e.target.id === 'dev-records-modal') closeDevRecordsModal();
+            if (e.target.id === 'mkt-process-modal') closeMktProcessModal();
+            if (e.target.id === 'ad-agency-modal') closeAdAgencyModal();
+        });
+    </script>
+</body>
+</html>
