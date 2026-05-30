@@ -388,7 +388,7 @@
     <!-- ==================== MODALS SECTION ==================== -->
 
     <!-- 임원진 프로필 모달 -->
-    <div id="team-modal" class="fixed inset-0 z-[100] hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-0 sm:p-6 transition-opacity">
+    <div id="team-modal" class="fixed inset-0 z-[100] hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-0 sm:p-6 transition-opacity duration-300 opacity-0">
         <div class="bg-corporate-light w-full h-full sm:h-auto max-w-6xl max-h-full sm:max-h-[90vh] rounded-none sm:rounded-xl shadow-2xl flex flex-col relative overflow-hidden">
             <div class="px-6 sm:px-8 py-4 sm:py-6 border-b border-gray-200 bg-white flex justify-between items-center sticky top-0 z-10">
                 <div>
@@ -400,6 +400,19 @@
                 </button>
             </div>
             <div class="px-5 sm:px-8 py-6 sm:py-8 overflow-y-auto modal-scroll bg-gray-50 flex-1">
+                <!-- 회장 & 대표이사 카드 영역 -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-white py-6 px-8 rounded-xl border border-corporate-gold/60 shadow-sm flex items-center justify-center gap-3">
+                        <span class="text-sm font-medium text-gray-500">회장</span>
+                        <span class="text-2xl font-bold text-corporate-900 font-serif">이진충</span>
+                    </div>
+                    <div class="bg-white py-6 px-8 rounded-xl border border-corporate-gold/60 shadow-sm flex items-center justify-center gap-3">
+                        <span class="text-sm font-medium text-gray-500">대표이사</span>
+                        <span class="text-2xl font-bold text-corporate-900 font-serif">최용수</span>
+                    </div>
+                </div>
+
+                <!-- 핵심 전문가 그룹 그리드 -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg transition-all flex flex-col h-full">
                         <div class="text-corporate-gold text-xs font-bold tracking-wider mb-2">DEVELOPMENT & PLANNING</div>
@@ -477,6 +490,13 @@
                             <li class="flex items-start gap-1.5"><span class="flex-shrink-0 text-corporate-gold">·</span><span>데이터 기반 개발 의사결정 지원</span></li>
                         </ul>
                     </div>
+                </div>
+                
+                <!-- 하단 닫기 버튼 (모바일 편의성 극대화) -->
+                <div class="mt-12 text-center pb-6">
+                    <button onclick="closeTeamModal()" class="px-8 py-3 bg-corporate-900 hover:bg-corporate-gold text-white font-bold rounded-lg shadow-md transition-colors w-full sm:w-auto">
+                        닫기 (돌아가기)
+                    </button>
                 </div>
             </div>
         </div>
