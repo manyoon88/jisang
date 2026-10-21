@@ -227,6 +227,21 @@
                         </div>
                     </div>
 
+                    <!-- 부동산개발업 등록증 카드 -->
+                    <button type="button" onclick="openCertModal()" aria-label="부동산개발업 등록증 크게 보기" class="service-card group w-full flex items-center gap-5 p-4 mb-10 bg-corporate-light border border-gray-200 rounded-lg text-left">
+                        <img src="images/registration-certificate-thumb.jpg" alt="부동산개발업 등록증 미리보기" loading="lazy" class="w-16 h-[90px] object-cover object-top rounded border border-gray-200 shadow-sm bg-white flex-shrink-0">
+                        <div class="flex-1 min-w-0">
+                            <p class="text-xs font-bold tracking-widest text-corporate-gold uppercase mb-1">Certified</p>
+                            <p class="text-lg font-bold text-corporate-900 break-keep">부동산개발업 등록업체</p>
+                            <p class="text-sm text-gray-500 mt-1 break-keep">경기도 등록 제260022호 · 2026.04.24 등록</p>
+                        </div>
+                        <span class="hidden sm:flex items-center gap-1 text-sm font-bold text-corporate-900 group-hover:text-corporate-gold transition-colors flex-shrink-0">
+                            등록증 보기
+                            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </span>
+                        <svg class="sm:hidden w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+
                     <!-- 임원진 팝업 호출 버튼 -->
                     <button onclick="openTeamModal()" class="group flex items-center gap-3 text-corporate-900 font-bold hover:text-corporate-gold transition-colors">
                         <span class="border-b-2 border-corporate-900 group-hover:border-corporate-gold pb-1 transition-colors">주요 임원진 프로필 보기</span>
@@ -390,6 +405,31 @@
 
 
     <!-- ==================== MODALS SECTION ==================== -->
+
+    <!-- 부동산개발업 등록증 모달 -->
+    <div id="cert-modal" role="dialog" aria-modal="true" aria-labelledby="cert-modal-title" class="fixed inset-0 z-[100] hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-0 sm:p-6 transition-opacity duration-300 opacity-0">
+        <div class="bg-white w-full h-full sm:h-auto max-w-2xl max-h-full sm:max-h-[92vh] rounded-none sm:rounded-xl shadow-2xl flex flex-col overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                <div>
+                    <h3 id="cert-modal-title" class="text-xl sm:text-2xl font-serif font-bold text-corporate-900">부동산개발업 등록증</h3>
+                    <p class="text-sm text-gray-500 mt-1">경기도 등록 제260022호 · 등록 상호: 주식회사 지상</p>
+                </div>
+                <button onclick="closeCertModal()" aria-label="닫기" class="text-gray-400 hover:text-red-500 transition-colors bg-gray-100 hover:bg-red-50 rounded-full p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto modal-scroll bg-gray-100 p-4 sm:p-6">
+                <img src="images/registration-certificate.jpg" alt="부동산개발업 등록증 (경기도 등록 제260022호, 주식회사 지상)" loading="lazy" class="w-full h-auto mx-auto bg-white shadow-md">
+            </div>
+            <div class="px-6 py-4 border-t border-gray-200 flex flex-col sm:flex-row gap-3 sm:justify-end">
+                <a href="images/registration-certificate.pdf" download="지상_부동산개발업등록증.pdf" class="px-6 py-3 border border-corporate-900 text-corporate-900 hover:bg-corporate-900 hover:text-white font-bold rounded-lg transition-colors text-center flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"></path></svg>
+                    PDF 원본 다운로드
+                </a>
+                <button onclick="closeCertModal()" class="px-8 py-3 bg-corporate-900 hover:bg-corporate-gold text-white font-bold rounded-lg shadow-md transition-colors">닫기</button>
+            </div>
+        </div>
+    </div>
 
     <!-- 임원진 프로필 모달 -->
     <div id="team-modal" class="fixed inset-0 z-[100] hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-0 sm:p-6 transition-opacity duration-300 opacity-0">
@@ -1017,6 +1057,21 @@
             close.classList.add('hidden');
         }
 
+        function openCertModal() {
+            const modal = document.getElementById('cert-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.add('opacity-100'); }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+        function closeCertModal() {
+            const modal = document.getElementById('cert-modal');
+            modal.classList.remove('opacity-100');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !document.getElementById('cert-modal').classList.contains('hidden')) closeCertModal();
+        });
         function openTeamModal() {
             const modal = document.getElementById('team-modal');
             modal.classList.remove('hidden');
@@ -1076,6 +1131,7 @@
             document.body.style.overflow = '';
         }
         document.addEventListener('click', function(e) {
+            if (e.target.id === 'cert-modal') closeCertModal();
             if (e.target.id === 'team-modal') closeTeamModal();
             if (e.target.id === 'dev-process-modal') closeDevProcessModal();
             if (e.target.id === 'dev-records-modal') closeDevRecordsModal();
